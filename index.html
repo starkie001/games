@@ -25,6 +25,7 @@
         }
 
         .games-flex-container {
+            margin: 20px;
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
@@ -49,7 +50,7 @@
 
     <section class="container">
 
-        <div class="games-flex-container" class="games-flex-container">
+        <div id="games-flex-container" class="games-flex-container">
             <div class="card">
                 <img src="https://www.freetogame.com/g/540/thumbnail.jpg" alt="">
                 <div class="card-body">
@@ -61,5 +62,27 @@
         </div>
 
     </section>
+
+    <script src="services/games-service.js"></script>
+    <script src="components/games-container.js"></script>
+
+    <script>        
+
+        function showGames(games) {
+            const gamesContainer = new GamesContainer();
+            document.getElementById("games-flex-container").innerHTML = gamesContainer.getGameCards(games);
+        }
+
+        window.onload = async ()=> {
+            // 1. get games from server
+            const gamesService = new GamesService();
+            const games = await gamesService.getGames();
+
+            //2. show games to page
+            showGames(games);
+
+        }
+    </script>
+
 
 </body>
